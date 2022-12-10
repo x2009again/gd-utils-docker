@@ -2,6 +2,7 @@ const Table = require('cli-table3')
 const dayjs = require('dayjs')
 const axios = require('@viegg/axios')
 const HttpsProxyAgent = require('https-proxy-agent')
+const ProxyAgent = require('proxy-agent')
 
 const { db } = require('../db')
 const { gen_count_body, validate_fid, real_copy, get_name_by_id, get_info_by_id, copy_file } = require('./gd')
@@ -12,7 +13,7 @@ const gen_link = (fid, text) => `<a href="https://drive.google.com/drive/folders
 
 if (!tg_token) throw new Error('请先在config.js里设置tg_token')
 const { https_proxy } = process.env
-const axins = axios.create(https_proxy ? { httpsAgent: new HttpsProxyAgent(https_proxy) } : {})
+const axins = axios.create(https_proxy ? { httpsAgent: new ProxyAgent(https_proxy) } : {})
 
 const FID_TO_NAME = {}
 
